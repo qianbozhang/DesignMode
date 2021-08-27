@@ -2,13 +2,13 @@
 using namespace std;
 
 
-// //A.define mode
-// typedef enum _Core_Type
-// {
-//     CORE_DEFAULT = 0,
-//     CORE_A,
-//     CORE_B
-// }Core_e;
+//A.define mode
+typedef enum _Core_Type
+{
+    CORE_DEFAULT = 0,
+    CORE_A,
+    CORE_B
+}Core_e;
 
 //b.SignalCore
 class SignalCore
@@ -91,14 +91,30 @@ public:
 };
 
 
+class FactoryProducer
+{
+public:
+    static CoreFactory* getFactory(Core_e e)
+    {
+        if(e == CORE_A){
+            return new CoreFactoryA();
+        }else if(e == CORE_B)
+        {
+            return new CoreFactoryB();
+        }else{
+            return NULL;
+        }
+    }
+};
+
+
  int main(int argc, char const *argv[])
  {
      /* code */
-     CoreFactoryA cfa;
-     CoreFactoryB cfb;
+    CoreFactory* cfa = FactoryProducer::getFactory(CORE_A);
     {
-        SignalCore* sfa = cfa.createSignalCore();
-        MultiCore* mfa = cfa.createMultiCore();
+        SignalCore* sfa = cfa->createSignalCore();
+        MultiCore* mfa = cfa->createMultiCore();
         sfa->show();
         mfa->show();
         delete sfa;
@@ -106,10 +122,13 @@ public:
         delete mfa;
         mfa = NULL;
     }
+    delete cfa;
+    cfa = NULL;
 
+    CoreFactory* cfb = FactoryProducer::getFactory(CORE_B);
     {
-        SignalCore* sfb = cfb.createSignalCore();
-        MultiCore* mfb = cfb.createMultiCore();
+        SignalCore* sfb = cfb->createSignalCore();
+        MultiCore* mfb = cfb->createMultiCore();
         sfb->show();
         mfb->show();
         delete sfb;
@@ -117,6 +136,8 @@ public:
         delete mfb;
         mfb = NULL;
     }
+    delete cfb;
+    cfb = NULL;
 
      return 0;
  }
