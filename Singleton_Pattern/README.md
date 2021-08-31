@@ -10,3 +10,4 @@
 资料:
 https://www.runoob.com/design-pattern/singleton-pattern.html
 https://www.cnblogs.com/crazy-wang-android/p/9054771.html
+https://blog.csdn.net/feng973/article/details/70210811?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_utm_term~default-1.control&spm=1001.2101.3001.4242
